@@ -41,7 +41,7 @@ const ShowDetail = ({ details }) => {
               return (
                 <div key={eps.id} className="d-flex flex-row">
                   <h1 className="badge mb-0"><span className="badge bg-dark-blue text-white">{eps.number}</span></h1>
-                  <div className="d-flex flex-column justify-content-center align-items-center ml-1">
+                  <div className="d-flex flex-column justify-content-center ml-1">
                     <h6 className="mb-0">{eps.name}</h6>
                     <div>
                       <span>{date}</span>
