@@ -17,6 +17,12 @@ const App = (movie) => {
   return (
     <div>
       <Header />
+      <main className="container bg-white">
+        <SearchBar getMovies={getMovies} />
+        {  movies.length > 0
+          && <MovieList movies={movies} />
+        }
+      </main>
     </div>
   );
 }
