@@ -17,3 +17,25 @@ body {
 main {
   min-height: 93vh;
 }
+
+.round-corners {
+  border-radius: 10px;
+}
+
+.movie-list-item {
+  height: 220px;
+  margin: 10% auto;
+}
+
+.poster {
+  transform: scaleY(1.2);
+}
+
+p {
+  font-size: 12px;
+  width: 70%;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+}

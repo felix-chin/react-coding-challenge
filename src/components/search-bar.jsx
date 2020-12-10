@@ -14,10 +14,10 @@ const SearchBar = ({ getMovies }) => {
     <div className="container">
       <div className="row align-items-center justify-content-center">
         <form onSubmit={handleSubmit} className="d-flex flex-row w-50 mt-4">
-          <div className="input-group input-group-lg">
+          <div className="input-group input-group-lg border-0">
             <div className="input-group-prepend">
               <span className="input-group-text bg-light-grey">
-                <i className="fas fa-search fa-fw"></i>
+                <i className="fas fa-search"></i>
               </span>
             </div>
             <input

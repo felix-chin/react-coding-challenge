@@ -19,9 +19,7 @@ const App = (movie) => {
       <Header />
       <main className="container bg-white">
         <SearchBar getMovies={getMovies} />
-        {  movies.length > 0
-          && <MovieList movies={movies} />
-        }
+        {movies.length > 0 && <MovieList movies={movies} />}
       </main>
     </div>
   );
