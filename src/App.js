@@ -3,6 +3,7 @@ import Header from './components/header';
 import SearchBar from './components/search-bar';
 import ShowList from './components/show-list';
 import ShowDetails from './components/show-detail';
+import Loader from './components/loader';
 
 const App = (show) => {
   const [ shows, setShows ] = useState([]);
@@ -14,15 +15,21 @@ const App = (show) => {
     info: []
   });
   const [ view, setView ] = useState(null);
+  const [isLoading, setLoading] = useState(false);
 
   const getShows = show => {
+    setLoading(true);
     fetch(`https://api.tvmaze.com/search/shows?q=${show}`)
       .then(res => res.json())
-      .then(data => setShows(data))
+      .then(data => {
+        setShows(data);
+        setLoading(false);
+      })
       .catch(err => console.error(err));
   }
 
   const getDetails = id => {
+    setLoading(true);
     Promise.all([
       fetch(`http://api.tvmaze.com/shows/${id}/episodes`),
       fetch(`http://api.tvmaze.com/shows/${id}/seasons`),
@@ -39,18 +46,21 @@ const App = (show) => {
           crew: data4,
           info: data5
         });
+        setLoading(false);
       })
       .catch(err => console.error(err));
   }
+
+  let renderView = view === 'details' ? <ShowDetails details={details} /> : <ShowList shows={shows} setView={setView} getDetails={getDetails} />;
 
   return (
     <div>
       <Header />
       <main className="container bg-white my-4">
         <SearchBar getShows={getShows} setView={setView} />
-        {view === 'details'
-          ? <ShowDetails details={details} />
-          : <ShowList shows={shows} setView={setView} getDetails={getDetails} />
+        {isLoading
+          ? <Loader />
+          : renderView
         }
       </main>
     </div>
