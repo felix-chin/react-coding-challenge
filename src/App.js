@@ -1,23 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react';
+import Header from './components/header';
+import SearchBar from './components/search-bar';
+import MovieList from './components/movie-list';
+import MovieDetails from './components/movie-detail';
 
-function App() {
+const App = (movie) => {
+  const [ movies, setMovies ] = useState([]);
+
+  const getMovies = movie => {
+    fetch(`https://api.tvmaze.com/search/shows?q=${movie}`)
+      .then(res => res.json())
+      .then(data => setMovies(data))
+      .catch(err => console.error(err));
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
     </div>
   );
 }
