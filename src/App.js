@@ -6,6 +6,7 @@ import MovieDetails from './components/movie-detail';
 
 const App = (movie) => {
   const [ movies, setMovies ] = useState([]);
+  const [ view, setView ] = useState(null);
 
   const getMovies = movie => {
     fetch(`https://api.tvmaze.com/search/shows?q=${movie}`)
@@ -17,9 +18,12 @@ const App = (movie) => {
   return (
     <div>
       <Header />
-      <main className="container bg-white">
-        <SearchBar getMovies={getMovies} />
-        {movies.length > 0 && <MovieList movies={movies} />}
+      <main className="container bg-white my-4">
+        <SearchBar getMovies={getMovies} setView={setView} />
+        {view === 'details'
+          ? <MovieDetails />
+          : <MovieList movies={movies} setView={setView} />
+        }
       </main>
     </div>
   );

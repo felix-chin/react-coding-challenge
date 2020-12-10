@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const SearchBar = ({ getMovies }) => {
+const SearchBar = ({ getMovies, setView }) => {
   const [ searchInput, setSearch ] = useState('');
 
   const handleChange = (e) => setSearch(e.target.value);
@@ -8,6 +8,7 @@ const SearchBar = ({ getMovies }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     getMovies(searchInput);
+    setView('list');
   }
 
   return (

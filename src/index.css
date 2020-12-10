@@ -28,7 +28,7 @@ main {
 }
 
 .poster {
-  transform: scaleY(1.2);
+  transform: scaleY(1.25);
 }
 
 p {
@@ -38,4 +38,8 @@ p {
   display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
+}
+
+h4 {
+  color: #213252;
 }
