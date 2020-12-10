@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 
-const SearchBar = ({ getMovies, setView }) => {
+const SearchBar = ({ getShows, setView }) => {
   const [ searchInput, setSearch ] = useState('');
 
   const handleChange = (e) => setSearch(e.target.value);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    getMovies(searchInput);
+    getShows(searchInput);
     setView('list');
   }
 

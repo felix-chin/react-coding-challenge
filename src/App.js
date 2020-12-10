@@ -1,17 +1,45 @@
 import { useState } from 'react';
 import Header from './components/header';
 import SearchBar from './components/search-bar';
-import MovieList from './components/movie-list';
-import MovieDetails from './components/movie-detail';
+import ShowList from './components/show-list';
+import ShowDetails from './components/show-detail';
 
-const App = (movie) => {
-  const [ movies, setMovies ] = useState([]);
+const App = (show) => {
+  const [ shows, setShows ] = useState([]);
+  const [ details, setDetails ] = useState({
+    episodes: [],
+    seasons: [],
+    cast: [],
+    crew: [],
+    info: []
+  });
   const [ view, setView ] = useState(null);
 
-  const getMovies = movie => {
-    fetch(`https://api.tvmaze.com/search/shows?q=${movie}`)
+  const getShows = show => {
+    fetch(`https://api.tvmaze.com/search/shows?q=${show}`)
       .then(res => res.json())
-      .then(data => setMovies(data))
+      .then(data => setShows(data))
+      .catch(err => console.error(err));
+  }
+
+  const getDetails = id => {
+    Promise.all([
+      fetch(`http://api.tvmaze.com/shows/${id}/episodes`),
+      fetch(`http://api.tvmaze.com/shows/${id}/seasons`),
+      fetch(`http://api.tvmaze.com/shows/${id}/cast`),
+      fetch(`http://api.tvmaze.com/shows/${id}/crew`),
+      fetch(`http://api.tvmaze.com/shows/${id}`),
+    ])
+      .then(([res1, res2, res3, res4, res5]) => Promise.all([res1.json(), res2.json(), res3.json(), res4.json(), res5.json()]))
+      .then(([data1, data2, data3, data4, data5]) => {
+        setDetails({
+          episodes: data1,
+          seasons: data2,
+          cast: data3,
+          crew: data4,
+          info: data5
+        });
+      })
       .catch(err => console.error(err));
   }
 
@@ -19,10 +47,10 @@ const App = (movie) => {
     <div>
       <Header />
       <main className="container bg-white my-4">
-        <SearchBar getMovies={getMovies} setView={setView} />
+        <SearchBar getShows={getShows} setView={setView} />
         {view === 'details'
-          ? <MovieDetails />
-          : <MovieList movies={movies} setView={setView} />
+          ? <ShowDetails details={details} />
+          : <ShowList shows={shows} setView={setView} getDetails={getDetails} />
         }
       </main>
     </div>
