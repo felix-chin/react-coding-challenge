@@ -16,6 +16,7 @@ const App = (movie) => {
 
   return (
     <div>
+      <Header />
     </div>
   );
 }
